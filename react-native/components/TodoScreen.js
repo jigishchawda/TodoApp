@@ -6,12 +6,13 @@ import {
     ListView,
     Text
 } from 'react-native'
+import Todos from '../data/Todos'
 
 class TodoScreen extends Component {
     constructor(props) {
         super(props)
         let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
-        let todoItems = ['task 1', 'task 2']
+        let todoItems = Todos
         this.state = {
             newTask: '',
             todoDatasource: ds.cloneWithRows(todoItems),
@@ -23,7 +24,10 @@ class TodoScreen extends Component {
 
     renderTodoItem(todoItem) {
         return (
-            <Text>{todoItem}</Text>
+            <View style={styles.todo}>
+                <Text>{todoItem.name}</Text>
+                <Text style={styles.todoDate}>{todoItem.date.toDateString()}</Text>
+            </View>
         )
     }
 
@@ -40,6 +44,10 @@ class TodoScreen extends Component {
                     multiline = {false}
                     numberOfLines = {1}
                 />
+                <View style={styles.newTodoDateTime}>
+                    <Text style={styles.newTodoDate}>Date:</Text>
+                    <Text>Time:</Text>
+                </View>
                 <ListView
                     dataSource={this.state.todoDatasource}
                     renderRow={this.renderTodoItem}
@@ -47,7 +55,6 @@ class TodoScreen extends Component {
             </View>
         )
     }
-
 }
 
 const styles = StyleSheet.create({
@@ -70,6 +77,22 @@ const styles = StyleSheet.create({
         color: '#333333',
         marginBottom: 5,
     },
+    newTodoDateTime: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        borderWidth: 1
+    },
+    newTodoDate: {
+    },
+    todo: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+    todoDate: {
+        textAlign: 'right'
+    }
 });
 
 export default TodoScreen
