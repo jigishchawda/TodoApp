@@ -17,11 +17,18 @@ class TodoScreen extends Component {
         let todoItems = Todos
         this.state = {
             newTask: '',
+            addedItem: {},
             todoDatasource: ds.cloneWithRows(todoItems),
             todoItems
         }
-        this.handleTaskChanged = this.handleTaskChanged.bind(this)
         this.renderTodoItem = this.renderTodoItem.bind(this)
+        this.handleAddTodoItem = this.handleAddTodoItem.bind(this)
+    }
+
+    handleAddTodoItem(todoItem){
+        this.setState({
+            addedItem: todoItem
+        })
     }
 
     renderTodoItem(todoItem) {
@@ -30,13 +37,13 @@ class TodoScreen extends Component {
         )
     }
 
-    handleTaskChanged(text) {
-        this.setState({newTask: text})
-    }
     render() {
         return (
             <View style={styles.container}>
-                <AddItem />
+                <AddItem onAddTodo={this.handleAddTodoItem}/>
+                <Text style={{backgroundColor: 'red', color: 'white', fontSize: 20}}>
+                    {this.state.addedItem.name}
+                </Text>
                 <ListView
                     dataSource={this.state.todoDatasource}
                     renderRow={this.renderTodoItem}

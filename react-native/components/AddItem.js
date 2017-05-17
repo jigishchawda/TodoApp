@@ -8,7 +8,21 @@ import {
     Text
 } from 'react-native'
 
-class TodoItem extends Component {
+class AddItem extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            title: 'Hello',
+        }
+        this.handleTaskChanged = this.handleTaskChanged.bind(this)
+    }
+
+    handleTaskChanged(text) {
+        this.setState({
+            title: text
+        })
+    }
+
     render() {
         return (
             <View style={styles.addTodoContainer}>
@@ -18,7 +32,8 @@ class TodoItem extends Component {
                            multiline = {false}
                            numberOfLines = {1}
                 />
-                <TouchableOpacity style={styles.addButton}>
+                <TouchableOpacity style={styles.addButton}
+                    onPress={() => this.props.onAddTodo({name: this.state.title})}>
                     <Text style={styles.addText}>Add</Text>
                 </TouchableOpacity>
             </View>
@@ -51,4 +66,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default TodoItem
+export default AddItem
