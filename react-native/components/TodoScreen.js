@@ -7,6 +7,8 @@ import {
     Text
 } from 'react-native'
 import Todos from '../data/Todos'
+import TodoItem from './Todo_Item'
+import AddItem from './AddItem'
 
 class TodoScreen extends Component {
     constructor(props) {
@@ -24,10 +26,7 @@ class TodoScreen extends Component {
 
     renderTodoItem(todoItem) {
         return (
-            <View style={styles.todo}>
-                <Text>{todoItem.name}</Text>
-                <Text style={styles.todoDate}>{todoItem.date.toDateString()}</Text>
-            </View>
+            <TodoItem/>
         )
     }
 
@@ -37,17 +36,7 @@ class TodoScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <TextInput style={styles.newTaskInputText}
-                    placeholder={'New task'}
-                    value={this.state.newTask}
-                    onChangeText={this.handleTaskChanged}
-                    multiline = {false}
-                    numberOfLines = {1}
-                />
-                <View style={styles.newTodoDateTime}>
-                    <Text style={styles.newTodoDate}>Date:</Text>
-                    <Text>Time:</Text>
-                </View>
+                <AddItem />
                 <ListView
                     dataSource={this.state.todoDatasource}
                     renderRow={this.renderTodoItem}
@@ -63,14 +52,6 @@ const styles = StyleSheet.create({
         paddingTop: 48,
         backgroundColor: '#F5FCFF',
         paddingHorizontal: 16
-    },
-    newTaskInputText: {
-        borderWidth: 1,
-        height: 48,
-        borderColor: 'gray',
-        fontSize: 20,
-        textAlign: 'center',
-        marginBottom: 16
     },
     instructions: {
         textAlign: 'center',
