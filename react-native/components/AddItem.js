@@ -33,7 +33,7 @@ class AddItem extends Component {
                            numberOfLines = {1}
                 />
                 <TouchableOpacity style={styles.addButton}
-                    onPress={() => this.props.onAddTodo({name: this.state.title})}>
+                    onPress={() => this.props.onAddTodo({name: this.state.title, date: new Date()})}>
                     <Text style={styles.addText}>Add</Text>
                 </TouchableOpacity>
             </View>

@@ -16,6 +16,7 @@ class TodoScreen extends Component {
         let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
         let todoItems = Todos
         this.state = {
+            ds,
             newTask: '',
             addedItem: {},
             todoDatasource: ds.cloneWithRows(todoItems),
@@ -26,14 +27,18 @@ class TodoScreen extends Component {
     }
 
     handleAddTodoItem(todoItem){
+        let newItems = this.state.todoItems.slice(0)
+        newItems.push(todoItem)
+        let todoDatasource = this.state.ds.cloneWithRows(newItems)
         this.setState({
-            addedItem: todoItem
+            todoDatasource: todoDatasource,
+            todoItems: newItems
         })
     }
 
     renderTodoItem(todoItem) {
         return (
-            <TodoItem/>
+            <TodoItem item={todoItem}/>
         )
     }
 
@@ -41,12 +46,10 @@ class TodoScreen extends Component {
         return (
             <View style={styles.container}>
                 <AddItem onAddTodo={this.handleAddTodoItem}/>
-                <Text style={{backgroundColor: 'red', color: 'white', fontSize: 20}}>
-                    {this.state.addedItem.name}
-                </Text>
                 <ListView
                     dataSource={this.state.todoDatasource}
                     renderRow={this.renderTodoItem}
+                    enableEmptySections
                 />
             </View>
         )

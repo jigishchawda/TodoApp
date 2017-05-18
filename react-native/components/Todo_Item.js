@@ -11,8 +11,8 @@ class TodoItem extends Component {
     render() {
         return (
             <View style={styles.todo}>
-                <Text>todoItem.name</Text>
-                <Text style={styles.todoDate}>todoItem.date</Text>
+                <Text>{this.props.item.name}</Text>
+                <Text style={styles.todoDate}>{this.props.item.date.toDateString()}</Text>
             </View>
         )
     }
